@@ -426,26 +426,3 @@ The project can be understood as a social network with <em><b>collections</b></e
 
 [Go to frontend](https://github.com/israelias/django-react-ecommerce/tree/master/frontend)\
 [Go to backend](https://github.com/israelias/django-react-ecommerce/tree/master/backend)
-
-## Credits
-
-### Content and Media
-- Product listings used to fill the database are random items gathered throughout the development of the project include url references in the product sources. 
-
-### Acknowledgments
-#### ESLint and Typescript Configuration
-- [ESlint Typescript with Prettier](https://dev.to/benweiser/how-to-set-up-eslint-typescript-prettier-with-create-react-app-3675) 
-- [Create-React-App: Typescript, ESLint & Prettier with Airbnb style guides on VSCode](https://medium.com/react-courses/react-create-react-app-v3-4-1-a55f3e7a8d6d)
-- [Airbnb Javascript style guide — Key takeaway](https://medium.com/docon/airbnb-javascript-style-guide-key-takeaways-ffd0370c053)
--[Config ESLint, Prettier in Typescript React App](https://rajduraisamy.medium.com/config-eslint-prettier-in-typescript-react-app-c92ebf14a896)
-#### ReactJS and Typescript References
-- [ReactJS Typescript components](https://medium.com/react-courses/instant-write-reactjs-typescript-components-complete-beginners-guide-with-a-cheatsheet-e32a76022a44)
-
-#### DRF with React/NextJS frontend References
-- [Next JS | Django Rest Framework - Build an ecommerce store](https://www.youtube.com/watch?v=AuRmc9OTC1s)
-
-
-### Mentoring
-- Aaron Sinnot
-- Code Institute tutors
-- Fellow Code Institute students
