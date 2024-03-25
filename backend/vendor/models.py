@@ -35,25 +35,43 @@ class Vendor(models.Model):
         blank=True,
         placeholder_image=OnDiscPlaceholderImage(path=settings.MEDIA_ROOT + "/images/default_avatar.png"),
     )
-
+    
     class Meta:
         ordering = ["name"]
         verbose_name = _("Vendor")
         verbose_name_plural = _("Vendors")
-
+    
+      
+       
     def __str__(self):
+        
+        """
+        The code defines methods for returning the name of an object, generating its absolute URL, calculating
+        the balance and paid amount for a vendor.
+        :return: The `__str__` and `__unicode__` methods are returning the `name` attribute of the object. 
+        The `get_absolute_url` method is returning the URL for the vendor list page with the vendor's `slug` as an argument. 
+        The `get_balance` method is calculating the total balance due to the vendor for unpaid items, 
+        and the `get_paid_amount` method is calculating
+        """
+        
         return self.name
-
+    
     def __unicode__(self):
+        """
+        The `__unicode__` function in Python returns the name attribute of an object 
+        as a Unicode string.
+        :return: The `__unicode__` method is returning the `name` attribute 
+        of the object.
+        """
         return self.name
-
+    
     def get_absolute_url(self):
         return reverse("vendor:vendor_list", args=[self.slug])
-
+    
     def get_balance(self):
         items = self.items.filter(vendor_paid=False, order__vendors__in=[self.id])
         return sum((item.product.price * item.quantity) for item in items)
-
+    
     def get_paid_amount(self):
         items = self.items.filter(vendor_paid=True, order__vendors__in=[self.id])
         return sum((item.product.price * item.quantity) for item in items)

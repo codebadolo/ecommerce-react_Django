@@ -14,7 +14,7 @@ from .models import Category, Favorite, Image, Product
 
 class CategorySerializer(serializers.ModelSerializer):
     products = serializers.StringRelatedField(many=True)
-
+    
     class Meta:
         model = Category
         fields = ["id", "name", "products", "slug"]
@@ -42,7 +42,7 @@ class VendorPreviewSerializer(serializers.ModelSerializer):
     favorites = serializers.SerializerMethodField()
     order_requests = serializers.SerializerMethodField()
     orders_made = serializers.SerializerMethodField()
-
+    
     class Meta:
         model = vendor_models.Vendor
         fields = [
@@ -158,7 +158,7 @@ class ProductSerializer(serializers.ModelSerializer):
     condition = serializers.CharField(source="get_condition_display", read_only=True)
     product_images = ImageNewSerializer(many=True, read_only=True)
     image = serializers.SerializerMethodField()
-
+    
     class Meta:
         model = Product
         fields = [

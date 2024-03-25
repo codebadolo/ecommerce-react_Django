@@ -50,7 +50,7 @@ class CurrentVendorSerializer(serializers.ModelSerializer):
             ("thumbnail", "thumbnail__100x100"),
         ]
     )
-
+    
     class Meta:
         model = Vendor
         fields = [
@@ -117,7 +117,7 @@ class OtherVendorSerializer(serializers.ModelSerializer):
         A vendor's products.
         A vendor's count of orders made as a buyer.
         A vendor's count of products posted.
-
+    
     """
 
     products = serializers.SerializerMethodField()

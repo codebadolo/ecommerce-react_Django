@@ -34,7 +34,7 @@ class Category(MPTTModel):
     """
     Category Table as MPTT model.
     """
-
+    
     name = models.CharField(
         verbose_name=_("Category Name"),
         help_text=_("Required and unique"),
@@ -45,23 +45,23 @@ class Category(MPTTModel):
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
     ordering = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
-
+    
     class MPTTMeta:
         order_insertion_by = ["name"]
-
+    
     class Meta:
         ordering = ["ordering"]
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
-
+    
     def get_absolute_url(self):
         return reverse("store:category_list", args=[self.slug])
-
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(rand_slug() + "-" + self.name)
         super(Category, self).save(*args, **kwargs)
-
+    
     def get_slug_list(self):
         try:
             ancestors = self.get_ancestors(include_self=True)
@@ -73,10 +73,10 @@ class Category(MPTTModel):
         for i in range(len(ancestors)):
             slugs.append("/".join(ancestors[: i + 1]))
         return slugs
-
+    
     def __str__(self):
         return self.name
-
+    
     def __unicode__(self):
         return self.name
 
@@ -93,7 +93,7 @@ class Product(models.Model):
         (2, _("Fair")),
         (1, _("Damaged")),
     )
-
+    
     category = models.ForeignKey(Category, related_name="products", on_delete=models.CASCADE)
     vendor = models.ForeignKey(Vendor, related_name="products", on_delete=models.CASCADE)
     title = models.CharField(
@@ -114,7 +114,7 @@ class Product(models.Model):
         max_digits=8,
         decimal_places=2,
     )
-
+    
     is_available = models.BooleanField(
         verbose_name=_("Product availability"),
         help_text=_("Change product availability"),
@@ -131,17 +131,17 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("store:product-detail", args=[self.slug])
-
+    
     def save(self, *args, **kwargs):
-
+        
         if not self.slug:
             self.slug = slugify(self.title)
-
+        
         super(Product, self).save(*args, **kwargs)
-
+    
     def __str__(self):
         return self.title
-
+    
     def __unicode__(self):
         return self.title
 
@@ -150,7 +150,7 @@ class Image(models.Model):
     """
     The Product Versatile Image table.
     """
-
+    
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_images")
     name = models.CharField(max_length=255, null=True, blank=True)
     image = VersatileImageField(
@@ -178,7 +178,7 @@ class Image(models.Model):
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
-
+    
     class Meta:
         ordering = ["is_feature"]
         verbose_name = _("Versatile Image")
@@ -210,7 +210,7 @@ class Image(models.Model):
 
         if not self.alt_text:
             self.alt_text = self.product.title + " photo"
-
+        
         super(Image, self).save(*args, **kwargs)
 
 
@@ -227,12 +227,12 @@ class Favorite(models.Model):
     vendor = models.OneToOneField(Vendor, related_name="favorites", on_delete=models.CASCADE)
     favorites = models.ManyToManyField(Product, related_name="favorites")
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False)
-
+    
     class Meta:
         ordering = ("-created_at",)
         verbose_name = _("Favorite Product")
         verbose_name_plural = _("Favorite Products")
-
+    
     def __str__(self):
         return "%s's favorites" % self.vendor.name
 
